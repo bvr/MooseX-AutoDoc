@@ -211,6 +211,8 @@ PROCESS description_block;
 PROCESS roles_consumed_block;
 PROCESS attributes_block;
 PROCESS methods_block;
+%]
+[%#
 PROCESS authors_block;
 PROCESS license_block;
 %]
@@ -305,11 +307,13 @@ END;
 Retrieve the role metaclass instance. Please see L<Moose::Meta::Role>;
 ^;
 
-  $blocks->{method_block} = q^
+  $blocks->{method_block} = q{
+[%- UNLESS method.name.match('^_') %]
 =head2 [% method.name %]
 
 Description of [% method.name %]
-^;
+[%- END %]
+};
 
   $blocks->{authors_block} = q^
 =head1 AUTHORS
@@ -342,6 +346,8 @@ PROCESS description_block;
 PROCESS roles_consumed_block;
 PROCESS attributes_block;
 PROCESS methods_block;
+%]
+[%# commented out
 PROCESS authors_block;
 PROCESS license_block;
 %]
